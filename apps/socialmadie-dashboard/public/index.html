@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socialmadie Dashboard</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f172a;
+        --panel: #111827;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --ok: #22c55e;
+        --border: #1f2937;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #111827 50%, #1e1b4b);
+        color: #f8fafc;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+      .hero,
+      .card {
+        background: rgba(17, 24, 39, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      .hero h1 {
+        margin-top: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(124, 58, 237, 0.18);
+        color: #c4b5fd;
+        border: 1px solid rgba(124, 58, 237, 0.45);
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      .status {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--ok);
+        font-weight: bold;
+      }
+      code {
+        background: rgba(15, 23, 42, 0.95);
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+      .actions a {
+        color: white;
+        background: var(--accent);
+        text-decoration: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        display: inline-block;
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+      ul {
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <div class="badge">Socialmadie v1.0</div>
+        <h1>Integrated starter dashboard</h1>
+        <p class="muted">
+          This local dashboard wires your workspace to the cloned reference
+          repos and gives you a single place to start building the actual app.
+        </p>
+        <div class="actions">
+          <a href="/api/health">Health API</a>
+          <a href="/api/integrations">Integration JSON</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Connected repo references</h2>
+        <div id="cards" class="grid"></div>
+      </section>
+
+      <section class="card" style="margin-top: 20px">
+        <h2>Next build targets</h2>
+        <ul>
+          <li>
+            <strong>Automation:</strong> use <code>integrations/n8n</code> and
+            <code>integrations/activepieces</code> for workflow ideas and
+            orchestration.
+          </li>
+          <li>
+            <strong>Publishing:</strong> adapt UX patterns from
+            <code>integrations/mixpost</code>.
+          </li>
+          <li>
+            <strong>Campaign logic:</strong> review
+            <code>integrations/randolly</code> for reference flows and ideas.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      async function loadCards() {
+        const res = await fetch("/api/integrations");
+        const data = await res.json();
+        const cards = document.getElementById("cards");
+        cards.innerHTML = data.integrations
+          .map(
+            (item) => `
+        <article class="card">
+          <div class="badge">${item.label}</div>
+          <h3>${item.role}</h3>
+          <p class="muted"><strong>Path:</strong> <code>${item.repoPath}</code></p>
+          <p class="muted"><strong>Local URL:</strong> ${item.localUrl}</p>
+          <div class="status">${item.available ? "Available locally" : "Missing locally"}</div>
+        </article>
+      `,
+          )
+          .join("");
+      }
+
+      loadCards().catch((error) => {
+        document.getElementById("cards").innerHTML =
+          `<article class="card"><h3>Failed to load integrations</h3><p>${error.message}</p></article>`;
+      });
+    </script>
+  </body>
+</html>

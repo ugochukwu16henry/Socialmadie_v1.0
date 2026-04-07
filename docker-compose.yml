@@ -1,0 +1,25 @@
+services:
+  socialmadie-dashboard:
+    image: node:24-alpine
+    working_dir: /app
+    command: ["node", "apps/socialmadie-dashboard/server.js"]
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=development
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:

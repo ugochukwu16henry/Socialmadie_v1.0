@@ -1,0 +1,10 @@
+{
+  "name": "socialmadie-v1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Starter Socialmadie workspace wired to local integration references.",
+  "scripts": {
+    "start": "node apps/socialmadie-dashboard/server.js",
+    "dev": "node apps/socialmadie-dashboard/server.js"
+  }
+}

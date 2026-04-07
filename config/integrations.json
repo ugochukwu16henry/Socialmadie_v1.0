@@ -1,0 +1,30 @@
+{
+  "project": "Socialmadie v1.0",
+  "description": "Starter integration map for the local Socialmadie workspace.",
+  "modules": [
+    {
+      "name": "automation-primary",
+      "repo": "integrations/n8n",
+      "purpose": "Workflow automation, triggers, and background jobs",
+      "localUrl": "http://localhost:5678"
+    },
+    {
+      "name": "social-publishing",
+      "repo": "integrations/mixpost",
+      "purpose": "Scheduling and publishing inspiration for social content",
+      "localUrl": "reference-only"
+    },
+    {
+      "name": "campaign-ideas",
+      "repo": "integrations/randolly",
+      "purpose": "Feature/reference source for campaign and promo workflows",
+      "localUrl": "reference-only"
+    },
+    {
+      "name": "automation-secondary",
+      "repo": "integrations/activepieces",
+      "purpose": "Alternative automation/reference platform",
+      "localUrl": "http://localhost:8080"
+    }
+  ]
+}
