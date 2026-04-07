@@ -1,0 +1,13 @@
+# Reference repos (cloned for inspiration, not committed)
+integrations/
+
+# Dependencies
+node_modules/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Env
+.env
+.env.local
