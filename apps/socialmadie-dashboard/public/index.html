@@ -9,14 +9,14 @@
         color-scheme: dark;
         --bg: #0f172a;
         --panel: #111827;
-        --panel-soft: rgba(15, 23, 42, 0.78);
         --muted: #94a3b8;
         --accent: #7c3aed;
         --ok: #22c55e;
-        --warn: #f59e0b;
         --border: #1f2937;
       }
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         font-family: Arial, sans-serif;
@@ -24,41 +24,29 @@
         color: #f8fafc;
       }
       .wrap {
-        max-width: 1180px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 32px 20px 48px;
       }
-      .hero, .card {
+      .hero,
+      .card {
         background: rgba(17, 24, 39, 0.92);
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
-      .hero h1, .card h2, .card h3 { margin-top: 0; }
-      .muted { color: var(--muted); }
+      .hero h1 {
+        margin-top: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 16px;
         margin-top: 20px;
-      }
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 14px;
-        margin-top: 18px;
-      }
-      .stat {
-        background: var(--panel-soft);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 14px;
-      }
-      .stat-value {
-        font-size: 28px;
-        font-weight: 700;
-        margin-top: 8px;
       }
       .badge {
         display: inline-block;
@@ -70,22 +58,12 @@
         font-size: 12px;
         margin-bottom: 10px;
       }
-      .pill {
-        display: inline-block;
-        margin: 4px 6px 0 0;
-        padding: 5px 9px;
-        border-radius: 999px;
-        background: rgba(148, 163, 184, 0.14);
-        color: #dbeafe;
-        font-size: 12px;
-      }
       .status {
         display: inline-block;
         margin-top: 10px;
         color: var(--ok);
         font-weight: bold;
       }
-      .warning { color: var(--warn); }
       code {
         background: rgba(15, 23, 42, 0.95);
         padding: 2px 6px;
@@ -101,96 +79,74 @@
         margin-right: 10px;
         margin-top: 10px;
       }
-      ul { padding-left: 18px; }
-      .section-space { margin-top: 20px; }
+      ul {
+        padding-left: 18px;
+      }
     </style>
   </head>
   <body>
     <div class="wrap">
       <section class="hero">
         <div class="badge">Socialmadie v1.0</div>
-        <h1 id="headline">Unified feature dashboard</h1>
-        <p id="summary" class="muted">
-          Loading workspace summary...
+        <h1>Integrated starter dashboard</h1>
+        <p class="muted">
+          This local dashboard wires your workspace to the cloned reference
+          repos and gives you a single place to start building the actual app.
         </p>
         <div class="actions">
           <a href="/api/health">Health API</a>
-          <a href="/api/dashboard-data">Dashboard Data</a>
+          <a href="/api/integrations">Integration JSON</a>
         </div>
-        <div id="stats" class="stats"></div>
       </section>
 
-      <section class="section-space">
-        <h2>Feature modules being built</h2>
-        <div id="features" class="grid"></div>
-      </section>
-
-      <section class="section-space">
-        <h2>Source sync matrix</h2>
+      <section>
+        <h2>Connected repo references</h2>
         <div id="cards" class="grid"></div>
       </section>
 
-      <section class="card section-space">
-        <h2>Single-repo plan</h2>
+      <section class="card" style="margin-top: 20px">
+        <h2>Next build targets</h2>
         <ul>
-          <li><strong>One root repo:</strong> everything should live under <code>Socialmadie_v1.0</code>.</li>
-          <li><strong>Automation sync:</strong> combine <code>n8n</code> and <code>activepieces</code> patterns into one feature set.</li>
-          <li><strong>Publishing sync:</strong> fold <code>mixpost</code> ideas into the Socialmadie content workflow.</li>
-          <li><strong>Campaign sync:</strong> adapt <code>randolly</code> concepts into the Socialmadie planning layer.</li>
+          <li>
+            <strong>Automation:</strong> use <code>integrations/n8n</code> and
+            <code>integrations/activepieces</code> for workflow ideas and
+            orchestration.
+          </li>
+          <li>
+            <strong>Publishing:</strong> adapt UX patterns from
+            <code>integrations/mixpost</code>.
+          </li>
+          <li>
+            <strong>Campaign logic:</strong> review
+            <code>integrations/randolly</code> for reference flows and ideas.
+          </li>
         </ul>
       </section>
     </div>
 
     <script>
-      function renderStats(stats) {
-        return stats.map((item) => `
-          <div class="stat">
-            <div class="muted">${item.label}</div>
-            <div class="stat-value">${item.value}</div>
-          </div>
-        `).join("");
-      }
-
-      function renderFeatures(features) {
-        return features.map((feature) => `
-          <article class="card">
-            <div class="badge">${feature.source.join(" + ")}</div>
-            <h3>${feature.title}</h3>
-            <p class="muted">${feature.description}</p>
-            ${feature.items.map((item) => `<span class="pill">${item}</span>`).join("")}
-          </article>
-        `).join("");
-      }
-
-      function renderIntegrations(integrations) {
-        return integrations.map((item) => `
-          <article class="card">
-            <div class="badge">${item.label}</div>
-            <h3>${item.feature}</h3>
-            <p class="muted">${item.purpose}</p>
-            <p class="muted"><strong>Path:</strong> <code>${item.repoPath}</code></p>
-            <p class="muted"><strong>Local URL:</strong> ${item.localUrl}</p>
-            ${item.capabilities.map((cap) => `<span class="pill">${cap}</span>`).join("")}
-            <div class="status">${item.available ? "Available locally" : "Missing locally"}</div>
-            <div class="${item.syncedToRootRepo ? "status" : "status warning"}">${item.syncedToRootRepo ? "Synced into Socialmadie repo" : "Still has nested .git repo"}</div>
-          </article>
-        `).join("");
-      }
-
-      async function loadDashboard() {
-        const res = await fetch("/api/dashboard-data");
+      async function loadCards() {
+        const res = await fetch("/api/integrations");
         const data = await res.json();
-
-        document.getElementById("headline").textContent = data.headline;
-        document.getElementById("summary").textContent = data.summary;
-        document.getElementById("stats").innerHTML = renderStats(data.stats);
-        document.getElementById("features").innerHTML = renderFeatures(data.features);
-        document.getElementById("cards").innerHTML = renderIntegrations(data.integrations);
+        const cards = document.getElementById("cards");
+        cards.innerHTML = data.integrations
+          .map(
+            (item) => `
+        <article class="card">
+          <div class="badge">${item.label}</div>
+          <h3>${item.role}</h3>
+          <p class="muted"><strong>Path:</strong> <code>${item.repoPath}</code></p>
+          <p class="muted"><strong>Local URL:</strong> ${item.localUrl}</p>
+          <div class="status">${item.available ? "Available locally" : "Missing locally"}</div>
+        </article>
+      `,
+          )
+          .join("");
       }
 
-      loadDashboard().catch((error) => {
-        document.getElementById("features").innerHTML =
-          `<article class="card"><h3>Failed to load dashboard</h3><p>${error.message}</p></article>`;
+      loadCards().catch((error) => {
+        document.getElementById("cards").innerHTML =
+          `<article class="card"><h3>Failed to load integrations</h3><p>${error.message}</p></article>`;
       });
     </script>
   </body>
