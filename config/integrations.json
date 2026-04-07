@@ -1,30 +1,46 @@
 {
   "project": "Socialmadie v1.0",
-  "description": "Starter integration map for the local Socialmadie workspace.",
+  "description": "Unified product workspace that folds automation, publishing, and campaign ideas into a single Socialmadie repository.",
   "modules": [
     {
-      "name": "automation-primary",
+      "id": "n8n",
+      "label": "n8n",
       "repo": "integrations/n8n",
-      "purpose": "Workflow automation, triggers, and background jobs",
-      "localUrl": "http://localhost:5678"
+      "role": "Workflow automation engine",
+      "purpose": "Automates content tasks, triggers, and background workflows.",
+      "feature": "Automation Hub",
+      "localUrl": "http://localhost:5678",
+      "capabilities": ["workflow templates", "event triggers", "scheduled jobs"]
     },
     {
-      "name": "social-publishing",
+      "id": "mixpost",
+      "label": "Mixpost",
       "repo": "integrations/mixpost",
-      "purpose": "Scheduling and publishing inspiration for social content",
-      "localUrl": "reference-only"
+      "role": "Social publishing inspiration",
+      "purpose": "Drives post scheduling, publishing flow, and content queue ideas.",
+      "feature": "Publishing Queue",
+      "localUrl": "reference-only",
+      "capabilities": ["calendar planning", "post scheduling", "channel management"]
     },
     {
-      "name": "campaign-ideas",
+      "id": "randolly",
+      "label": "Randolly",
       "repo": "integrations/randolly",
-      "purpose": "Feature/reference source for campaign and promo workflows",
-      "localUrl": "reference-only"
+      "role": "Campaign and promo reference source",
+      "purpose": "Supports campaign planning, promo concepts, and audience activation.",
+      "feature": "Campaign Lab",
+      "localUrl": "reference-only",
+      "capabilities": ["campaign ideas", "promo flows", "engagement concepts"]
     },
     {
-      "name": "automation-secondary",
+      "id": "activepieces",
+      "label": "Activepieces",
       "repo": "integrations/activepieces",
-      "purpose": "Alternative automation/reference platform",
-      "localUrl": "http://localhost:8080"
+      "role": "Alternative automation platform",
+      "purpose": "Adds automation references and no-code integration patterns.",
+      "feature": "Integration Builder",
+      "localUrl": "http://localhost:8080",
+      "capabilities": ["piece-based automations", "app connections", "flow orchestration"]
     }
   ]
 }
