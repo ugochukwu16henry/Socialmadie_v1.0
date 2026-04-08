@@ -1,16 +1,29 @@
 [
   {
+    "id": "47665137-e423-4e87-b419-edebf802cda6",
+    "title": "n8n approved post 5:32:43 AM",
+    "platform": "Instagram",
+    "owner": "Automation",
+    "stage": "scheduled",
+    "status": "Approved via n8n",
+    "due": "2026-04-09T16:32:43.236Z",
+    "notes": "This item was inserted by the webhook demo button.",
+    "source": "n8n",
+    "createdAt": "2026-04-08T04:32:43.245Z",
+    "updatedAt": "2026-04-08T04:32:43.245Z"
+  },
+  {
     "id": "planner-001",
     "title": "Easter reflection carousel",
-    "platform": "Instagram",
-    "owner": "Mercy",
-    "stage": "ideas",
-    "status": "Idea",
-    "due": "2026-04-08T18:00:00",
+    "platform": "General",
+    "owner": "Team",
+    "stage": "scheduled",
+    "status": "Scheduled",
+    "due": "2026-04-08T18:00",
     "notes": "Scripture-based carousel for evening engagement.",
-    "source": "manual",
+    "source": "manual-edit",
     "createdAt": "2026-04-08T08:00:00.000Z",
-    "updatedAt": "2026-04-08T08:00:00.000Z"
+    "updatedAt": "2026-04-08T04:34:27.033Z"
   },
   {
     "id": "planner-002",
@@ -28,15 +41,15 @@
   {
     "id": "planner-003",
     "title": "Pathway motivation reel",
-    "platform": "Reels",
-    "owner": "Design",
-    "stage": "production",
-    "status": "In Production",
+    "platform": "General",
+    "owner": "Team",
+    "stage": "scheduled",
+    "status": "Scheduled",
     "due": "2026-04-10T18:30:00",
     "notes": "Need captions and brand outro.",
-    "source": "manual",
+    "source": "manual-edit",
     "createdAt": "2026-04-08T08:10:00.000Z",
-    "updatedAt": "2026-04-08T08:10:00.000Z"
+    "updatedAt": "2026-04-08T04:34:29.007Z"
   },
   {
     "id": "planner-004",
@@ -63,18 +76,5 @@
     "source": "n8n",
     "createdAt": "2026-04-08T08:20:00.000Z",
     "updatedAt": "2026-04-08T08:20:00.000Z"
-  },
-  {
-    "id": "planner-006",
-    "title": "Volunteer spotlight",
-    "platform": "LinkedIn",
-    "owner": "Growth",
-    "stage": "scheduled",
-    "status": "Scheduled",
-    "due": "2026-04-14T09:00:00",
-    "notes": "Highlight team impact and call for volunteers.",
-    "source": "manual",
-    "createdAt": "2026-04-08T08:25:00.000Z",
-    "updatedAt": "2026-04-08T08:25:00.000Z"
   }
 ]

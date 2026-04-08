@@ -1,5 +1,151 @@
 [
   {
+    "id": "12a3d229-78eb-4339-b6c1-ba805cc167df",
+    "type": "planner-delete",
+    "summary": "Deleted planner item: Volunteer spotlight",
+    "createdAt": "2026-04-08T04:34:46.379Z",
+    "payload": {
+      "itemId": "planner-006"
+    }
+  },
+  {
+    "id": "d2f31726-0a9b-4158-89ef-d21415fbdac6",
+    "type": "planner-update",
+    "summary": "Updated planner item: Pathway motivation reel",
+    "createdAt": "2026-04-08T04:34:29.013Z",
+    "payload": {
+      "itemId": "planner-003",
+      "stage": "scheduled"
+    }
+  },
+  {
+    "id": "234ad7fe-0483-4187-8934-3f1cde21ae99",
+    "type": "planner-update",
+    "summary": "Updated planner item: Easter reflection carousel",
+    "createdAt": "2026-04-08T04:34:27.036Z",
+    "payload": {
+      "itemId": "planner-001",
+      "stage": "scheduled"
+    }
+  },
+  {
+    "id": "96da1837-ab8a-474a-b460-23593311b22e",
+    "type": "planner-update",
+    "summary": "Updated planner item: Easter reflection carousel",
+    "createdAt": "2026-04-08T04:33:56.776Z",
+    "payload": {
+      "itemId": "planner-001",
+      "stage": "production"
+    }
+  },
+  {
+    "id": "9794fed4-3779-4f4d-8d00-2a5da924bfa0",
+    "type": "planner-delete",
+    "summary": "Deleted planner item: n8n webhook demo post",
+    "createdAt": "2026-04-08T04:33:23.107Z",
+    "payload": {
+      "itemId": "2901072e-788a-4538-be8f-2d0001f9d90c"
+    }
+  },
+  {
+    "id": "4b5e3f01-3ecc-44d7-a7a7-5b79b524637e",
+    "type": "planner-update",
+    "summary": "Updated planner item: Easter reflection carousel",
+    "createdAt": "2026-04-08T04:33:01.546Z",
+    "payload": {
+      "itemId": "planner-001",
+      "stage": "production"
+    }
+  },
+  {
+    "id": "ecc571bf-eeb7-4a4c-b51f-1bbf34a10865",
+    "type": "n8n-webhook",
+    "summary": "n8n created planner item: n8n approved post 5:32:43 AM",
+    "createdAt": "2026-04-08T04:32:43.247Z",
+    "payload": {
+      "itemId": "47665137-e423-4e87-b419-edebf802cda6",
+      "action": "created"
+    }
+  },
+  {
+    "id": "777a51f9-b79f-4274-8c13-1810ddade03b",
+    "type": "n8n-webhook",
+    "summary": "n8n updated planner item: n8n webhook demo post",
+    "createdAt": "2026-04-08T04:31:41.014Z",
+    "payload": {
+      "itemId": "2901072e-788a-4538-be8f-2d0001f9d90c",
+      "action": "updated"
+    }
+  },
+  {
+    "id": "640037b0-7e70-4e98-8dee-80c160666934",
+    "type": "planner-delete",
+    "summary": "Deleted planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:41.003Z",
+    "payload": {
+      "itemId": "883ec66a-af0b-4a36-93e0-39ce09d44b3e"
+    }
+  },
+  {
+    "id": "b547a944-7002-461c-8aff-9bf931f04c29",
+    "type": "planner-update",
+    "summary": "Updated planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:40.987Z",
+    "payload": {
+      "itemId": "883ec66a-af0b-4a36-93e0-39ce09d44b3e",
+      "stage": "production"
+    }
+  },
+  {
+    "id": "80e16a36-4078-49f6-9dc3-fd8feaa32e0f",
+    "type": "planner-create",
+    "summary": "Created planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:40.968Z",
+    "payload": {
+      "itemId": "883ec66a-af0b-4a36-93e0-39ce09d44b3e",
+      "source": "manual"
+    }
+  },
+  {
+    "id": "f293d716-1687-46aa-a72d-fdd93a5fa09e",
+    "type": "n8n-webhook",
+    "summary": "n8n created planner item: n8n webhook demo post",
+    "createdAt": "2026-04-08T04:31:20.513Z",
+    "payload": {
+      "itemId": "2901072e-788a-4538-be8f-2d0001f9d90c",
+      "action": "created"
+    }
+  },
+  {
+    "id": "1d3fc595-7a00-4365-ac22-4db5baab7487",
+    "type": "planner-delete",
+    "summary": "Deleted planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:20.329Z",
+    "payload": {
+      "itemId": "3ed7d8c0-03fd-4b35-8870-595ee4518b92"
+    }
+  },
+  {
+    "id": "1f13925e-8cb5-4bfb-ae4a-88e85ac04ee9",
+    "type": "planner-update",
+    "summary": "Updated planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:20.204Z",
+    "payload": {
+      "itemId": "3ed7d8c0-03fd-4b35-8870-595ee4518b92",
+      "stage": "production"
+    }
+  },
+  {
+    "id": "e09ab207-ae45-412a-a187-515fd850c279",
+    "type": "planner-create",
+    "summary": "Created planner item: QA planner item",
+    "createdAt": "2026-04-08T04:31:19.993Z",
+    "payload": {
+      "itemId": "3ed7d8c0-03fd-4b35-8870-595ee4518b92",
+      "source": "manual"
+    }
+  },
+  {
     "id": "event-001",
     "type": "n8n-webhook",
     "summary": "Sunday worship reminder moved into the scheduled queue.",
