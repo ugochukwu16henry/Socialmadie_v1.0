@@ -1,0 +1,21 @@
+[
+  {
+    "id": "event-001",
+    "type": "n8n-webhook",
+    "summary": "Sunday worship reminder moved into the scheduled queue.",
+    "createdAt": "2026-04-08T08:30:00.000Z",
+    "payload": {
+      "source": "n8n",
+      "itemTitle": "Sunday worship reminder"
+    }
+  },
+  {
+    "id": "event-002",
+    "type": "planner-sync",
+    "summary": "Mixpost publishing plan synced into Socialmadie starter dashboard.",
+    "createdAt": "2026-04-08T08:10:00.000Z",
+    "payload": {
+      "source": "mixpost"
+    }
+  }
+]

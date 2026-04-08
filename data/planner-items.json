@@ -1,0 +1,80 @@
+[
+  {
+    "id": "planner-001",
+    "title": "Easter reflection carousel",
+    "platform": "Instagram",
+    "owner": "Mercy",
+    "stage": "ideas",
+    "status": "Idea",
+    "due": "2026-04-08T18:00:00",
+    "notes": "Scripture-based carousel for evening engagement.",
+    "source": "manual",
+    "createdAt": "2026-04-08T08:00:00.000Z",
+    "updatedAt": "2026-04-08T08:00:00.000Z"
+  },
+  {
+    "id": "planner-002",
+    "title": "Student success story short",
+    "platform": "TikTok",
+    "owner": "Media",
+    "stage": "ideas",
+    "status": "Research",
+    "due": "2026-04-09T12:00:00",
+    "notes": "Feature a BYU-Pathway transformation story.",
+    "source": "manual",
+    "createdAt": "2026-04-08T08:05:00.000Z",
+    "updatedAt": "2026-04-08T08:05:00.000Z"
+  },
+  {
+    "id": "planner-003",
+    "title": "Pathway motivation reel",
+    "platform": "Reels",
+    "owner": "Design",
+    "stage": "production",
+    "status": "In Production",
+    "due": "2026-04-10T18:30:00",
+    "notes": "Need captions and brand outro.",
+    "source": "manual",
+    "createdAt": "2026-04-08T08:10:00.000Z",
+    "updatedAt": "2026-04-08T08:10:00.000Z"
+  },
+  {
+    "id": "planner-004",
+    "title": "Weekly devotional thread",
+    "platform": "X",
+    "owner": "Comms",
+    "stage": "production",
+    "status": "Awaiting Approval",
+    "due": "2026-04-11T10:00:00",
+    "notes": "Need final approval from content lead.",
+    "source": "manual",
+    "createdAt": "2026-04-08T08:15:00.000Z",
+    "updatedAt": "2026-04-08T08:15:00.000Z"
+  },
+  {
+    "id": "planner-005",
+    "title": "Sunday worship reminder",
+    "platform": "Facebook",
+    "owner": "Team",
+    "stage": "scheduled",
+    "status": "Scheduled",
+    "due": "2026-04-12T19:00:00",
+    "notes": "Publish before the Sunday livestream.",
+    "source": "n8n",
+    "createdAt": "2026-04-08T08:20:00.000Z",
+    "updatedAt": "2026-04-08T08:20:00.000Z"
+  },
+  {
+    "id": "planner-006",
+    "title": "Volunteer spotlight",
+    "platform": "LinkedIn",
+    "owner": "Growth",
+    "stage": "scheduled",
+    "status": "Scheduled",
+    "due": "2026-04-14T09:00:00",
+    "notes": "Highlight team impact and call for volunteers.",
+    "source": "manual",
+    "createdAt": "2026-04-08T08:25:00.000Z",
+    "updatedAt": "2026-04-08T08:25:00.000Z"
+  }
+]

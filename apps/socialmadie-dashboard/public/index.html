@@ -30,8 +30,15 @@
         color: #f8fafc;
       }
 
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
       .wrap {
-        max-width: 1200px;
+        max-width: 1240px;
         margin: 0 auto;
         padding: 28px 18px 48px;
       }
@@ -47,7 +54,8 @@
 
       .hero-grid,
       .section-grid,
-      .grid {
+      .grid,
+      .two-grid {
         display: grid;
         gap: 16px;
       }
@@ -58,6 +66,11 @@
 
       .section-grid {
         grid-template-columns: 1.4fr 1fr;
+        margin-top: 20px;
+      }
+
+      .two-grid {
+        grid-template-columns: 1.1fr 0.9fr;
         margin-top: 20px;
       }
 
@@ -115,15 +128,27 @@
         margin: 8px 0 12px;
       }
 
-      .actions a {
+      .actions a,
+      .actions button,
+      .button-secondary {
         color: white;
         background: var(--accent);
+        border: none;
         text-decoration: none;
         padding: 10px 14px;
         border-radius: 10px;
         display: inline-block;
         margin-right: 10px;
         margin-top: 10px;
+        cursor: pointer;
+      }
+
+      .button-secondary {
+        background: #334155;
+      }
+
+      .button-danger {
+        background: #7f1d1d;
       }
 
       .summary-card {
@@ -138,7 +163,8 @@
 
       .mini-list,
       .calendar-list,
-      .workflow-list {
+      .workflow-list,
+      .event-list {
         display: grid;
         gap: 10px;
       }
@@ -146,7 +172,8 @@
       .mini-row,
       .calendar-item,
       .workflow-item,
-      .board-item {
+      .board-item,
+      .event-item {
         border: 1px solid var(--border);
         border-radius: 12px;
         padding: 12px;
@@ -176,11 +203,36 @@
       }
 
       .calendar-item,
-      .workflow-item {
+      .workflow-item,
+      .event-item {
         display: flex;
         justify-content: space-between;
         gap: 12px;
         align-items: flex-start;
+      }
+
+      .board-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .board-actions button {
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        color: white;
+        background: #334155;
+      }
+
+      .board-actions .danger {
+        background: #7f1d1d;
+      }
+
+      .board-actions .accent {
+        background: var(--accent);
       }
 
       code {
@@ -201,9 +253,48 @@
         font-size: 13px;
       }
 
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .form-grid .full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: rgba(8, 17, 32, 0.75);
+        color: #f8fafc;
+        padding: 10px 12px;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .status-banner {
+        margin-top: 12px;
+        min-height: 20px;
+      }
+
       @media (max-width: 900px) {
         .hero-grid,
-        .section-grid {
+        .section-grid,
+        .two-grid,
+        .form-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -214,17 +305,16 @@
       <section class="hero">
         <div class="hero-grid">
           <div>
-            <div class="badge">Socialmadie v1.0 · First feature build</div>
+            <div class="badge">Socialmadie v1.0 · CRUD + webhook phase</div>
             <h1>Content Planner + Automation Dashboard</h1>
             <p class="muted">
-              This screen now combines publishing inspiration from <code>mixpost</code>,
-              campaign ideas from <code>randolly</code>, and orchestration concepts from
-              <code>n8n</code> and <code>activepieces</code> into one Socialmadie workspace.
+              The planner is now backed by stored data inside Socialmadie, and the first
+              <code>n8n</code> webhook can create or update scheduled content automatically.
             </p>
             <div class="actions">
               <a href="/api/dashboard">Dashboard API</a>
-              <a href="/api/content-planner">Content Planner API</a>
-              <a href="/api/automation-dashboard">Automation API</a>
+              <a href="/api/planner-items">Planner Items API</a>
+              <a href="/api/webhooks/n8n/content-approved">n8n Webhook Path</a>
             </div>
           </div>
           <div class="card">
@@ -245,12 +335,89 @@
         <div id="summaryGrid" class="grid"></div>
       </section>
 
+      <section class="two-grid">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="badge">Planner CRUD</span>
+              <h2 style="margin-top: 8px">Manage content items</h2>
+            </div>
+            <span class="pill">Create · Update · Delete</span>
+          </div>
+          <form id="plannerForm" class="form-grid">
+            <input type="hidden" id="itemId" />
+            <label>
+              Title
+              <input id="title" name="title" required placeholder="Post title" />
+            </label>
+            <label>
+              Platform
+              <input id="platform" name="platform" placeholder="Instagram" />
+            </label>
+            <label>
+              Owner
+              <input id="owner" name="owner" placeholder="Mercy" />
+            </label>
+            <label>
+              Stage
+              <select id="stage" name="stage">
+                <option value="ideas">Ideas</option>
+                <option value="production">Production</option>
+                <option value="scheduled">Scheduled</option>
+              </select>
+            </label>
+            <label>
+              Due date
+              <input id="due" name="due" type="datetime-local" />
+            </label>
+            <label>
+              Status
+              <input id="status" name="status" placeholder="Idea / Scheduled / Ready" />
+            </label>
+            <label class="full">
+              Notes
+              <textarea id="notes" name="notes" placeholder="Add context for the team..."></textarea>
+            </label>
+            <div class="full actions">
+              <button type="submit">Save item</button>
+              <button type="button" class="button-secondary" id="resetFormBtn">Clear form</button>
+            </div>
+          </form>
+          <div id="formStatus" class="status-banner muted small"></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="badge">n8n webhook</span>
+              <h2 style="margin-top: 8px">Trigger approved content handoff</h2>
+            </div>
+            <span class="pill ok">Connected path</span>
+          </div>
+          <p class="muted small">
+            Webhook endpoint: <code>/api/webhooks/n8n/content-approved</code>
+          </p>
+          <p class="muted">
+            Use this to send approved content from <code>n8n</code> into the Socialmadie planner.
+            The demo button below sends a sample payload and updates the board instantly.
+          </p>
+          <div class="actions">
+            <button id="simulateWebhookBtn" type="button">Simulate n8n approval</button>
+          </div>
+          <div id="webhookStatus" class="status-banner muted small"></div>
+          <div style="margin-top: 16px">
+            <h3>Recent automation events</h3>
+            <div id="eventList" class="event-list"></div>
+          </div>
+        </article>
+      </section>
+
       <section class="section-grid">
         <article class="card">
           <div class="section-head">
             <div>
               <span class="badge">Feature 01</span>
-              <h2 style="margin-top: 8px">Content Planner</h2>
+              <h2 style="margin-top: 8px">Content Planner Board</h2>
             </div>
             <span class="pill">Mixpost + Randolly inspired</span>
           </div>
@@ -290,20 +457,76 @@
     </div>
 
     <script>
+      const state = {
+        dashboard: null,
+      };
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
       function toStatusClass(status) {
         const value = String(status || '').toLowerCase();
-        if (value.includes('healthy') || value.includes('ready') || value.includes('connected') || value.includes('scheduled')) return 'ok';
-        if (value.includes('review') || value.includes('sync')) return 'warn';
+        if (value.includes('healthy') || value.includes('ready') || value.includes('connected') || value.includes('scheduled') || value.includes('approved')) return 'ok';
+        if (value.includes('review') || value.includes('sync') || value.includes('production')) return 'warn';
         return 'danger';
+      }
+
+      function requestJson(url, options = {}) {
+        return fetch(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(options.headers || {}),
+          },
+          ...options,
+        }).then(async (response) => {
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.error || 'Request failed');
+          }
+          return data;
+        });
+      }
+
+      function setMessage(elementId, message, kind = 'muted') {
+        const root = document.getElementById(elementId);
+        root.className = `status-banner small ${kind}`;
+        root.textContent = message;
+      }
+
+      function resetForm() {
+        document.getElementById('itemId').value = '';
+        document.getElementById('plannerForm').reset();
+        document.getElementById('stage').value = 'ideas';
+        setMessage('formStatus', 'Ready for a new planner item.', 'muted');
+      }
+
+      function fillForm(itemId) {
+        const item = state.dashboard?.contentPlanner?.items?.find((entry) => entry.id === itemId);
+        if (!item) return;
+        document.getElementById('itemId').value = item.id;
+        document.getElementById('title').value = item.title || '';
+        document.getElementById('platform').value = item.platform || '';
+        document.getElementById('owner').value = item.owner || '';
+        document.getElementById('stage').value = item.stage || 'ideas';
+        document.getElementById('status').value = item.status || '';
+        document.getElementById('notes').value = item.notes || '';
+        document.getElementById('due').value = item.due ? String(item.due).slice(0, 16) : '';
+        setMessage('formStatus', `Editing: ${item.title}`, 'muted');
       }
 
       function renderSummary(items) {
         const grid = document.getElementById('summaryGrid');
         grid.innerHTML = items.map((item) => `
           <article class="card summary-card">
-            <div class="muted small">${item.label}</div>
-            <div class="value">${item.value}</div>
-            <div class="muted small">${item.note}</div>
+            <div class="muted small">${escapeHtml(item.label)}</div>
+            <div class="value">${escapeHtml(item.value)}</div>
+            <div class="muted small">${escapeHtml(item.note)}</div>
           </article>
         `).join('');
       }
@@ -312,9 +535,9 @@
         const root = document.getElementById('syncSnapshot');
         root.innerHTML = integrations.map((item) => `
           <div class="mini-row">
-            <strong>${item.label}</strong><br />
-            <span class="muted small">${item.feature}</span><br />
-            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+            <strong>${escapeHtml(item.label)}</strong><br />
+            <span class="muted small">${escapeHtml(item.feature)}</span><br />
+            <span class="pill ${toStatusClass(item.status)}">${escapeHtml(item.status)}</span>
           </div>
         `).join('');
       }
@@ -323,13 +546,20 @@
         const board = document.getElementById('contentBoard');
         board.innerHTML = contentPlanner.board.map((column) => `
           <div class="board-column">
-            <h3>${column.title}</h3>
+            <h3>${escapeHtml(column.title)}</h3>
             <div class="board-stack">
               ${column.items.map((item) => `
                 <div class="board-item">
-                  <strong>${item.title}</strong><br />
-                  <span class="muted small">${item.platform} · ${item.owner}</span><br />
-                  <span class="pill">Due: ${item.due}</span>
+                  <strong>${escapeHtml(item.title)}</strong><br />
+                  <span class="muted small">${escapeHtml(item.platform)} · ${escapeHtml(item.owner)}</span><br />
+                  <span class="pill ${toStatusClass(item.status)}">${escapeHtml(item.status)}</span>
+                  <span class="pill">Due: ${escapeHtml(item.dueLabel || item.due || 'TBD')}</span>
+                  <div class="muted small" style="margin-top: 8px">${escapeHtml(item.notes || 'No notes added yet.')}</div>
+                  <div class="board-actions">
+                    <button class="accent" onclick="fillForm('${item.id}')">Edit</button>
+                    <button onclick="moveToNextStage('${item.id}', '${item.stage}')">Move next</button>
+                    <button class="danger" onclick="deleteItem('${item.id}')">Delete</button>
+                  </div>
                 </div>
               `).join('')}
             </div>
@@ -340,10 +570,10 @@
         calendar.innerHTML = contentPlanner.calendar.map((item) => `
           <div class="calendar-item">
             <div>
-              <strong>${item.title}</strong><br />
-              <span class="muted small">${item.day} · ${item.time} · ${item.platform}</span>
+              <strong>${escapeHtml(item.title)}</strong><br />
+              <span class="muted small">${escapeHtml(item.day)} · ${escapeHtml(item.time)} · ${escapeHtml(item.platform)}</span>
             </div>
-            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+            <span class="pill ${toStatusClass(item.status)}">${escapeHtml(item.status)}</span>
           </div>
         `).join('');
       }
@@ -353,11 +583,22 @@
         workflows.innerHTML = automation.workflows.map((item) => `
           <div class="workflow-item">
             <div>
-              <strong>${item.name}</strong><br />
-              <span class="muted small">${item.source} · ${item.trigger}</span><br />
-              <span class="muted small">${item.outcome}</span>
+              <strong>${escapeHtml(item.name)}</strong><br />
+              <span class="muted small">${escapeHtml(item.source)} · ${escapeHtml(item.trigger)}</span><br />
+              <span class="muted small">${escapeHtml(item.outcome)}</span>
             </div>
-            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+            <span class="pill ${toStatusClass(item.status)}">${escapeHtml(item.status)}</span>
+          </div>
+        `).join('');
+
+        const eventList = document.getElementById('eventList');
+        eventList.innerHTML = automation.recentEvents.map((event) => `
+          <div class="event-item">
+            <div>
+              <strong>${escapeHtml(event.type)}</strong><br />
+              <span class="muted small">${escapeHtml(event.summary)}</span>
+            </div>
+            <span class="pill">${escapeHtml(new Date(event.createdAt).toLocaleString())}</span>
           </div>
         `).join('');
       }
@@ -366,20 +607,19 @@
         const cards = document.getElementById('cards');
         cards.innerHTML = integrations.map((item) => `
           <article class="card">
-            <div class="badge">${item.label}</div>
-            <h3>${item.feature}</h3>
-            <p class="muted">${item.purpose}</p>
-            <p class="muted small"><strong>Path:</strong> <code>${item.repoPath}</code></p>
-            <p class="muted small"><strong>Mode:</strong> ${item.syncState}</p>
+            <div class="badge">${escapeHtml(item.label)}</div>
+            <h3>${escapeHtml(item.feature)}</h3>
+            <p class="muted">${escapeHtml(item.purpose)}</p>
+            <p class="muted small"><strong>Path:</strong> <code>${escapeHtml(item.repoPath)}</code></p>
+            <p class="muted small"><strong>Mode:</strong> ${escapeHtml(item.syncState)}</p>
             <div class="pill ${toStatusClass(item.available ? 'connected' : 'missing')}">${item.available ? 'Available locally' : 'Missing locally'}</div>
           </article>
         `).join('');
       }
 
       async function loadDashboard() {
-        const res = await fetch('/api/dashboard');
-        if (!res.ok) throw new Error('Dashboard API failed to load');
-        const data = await res.json();
+        const data = await requestJson('/api/dashboard');
+        state.dashboard = data;
         renderSummary(data.summary);
         renderSyncSnapshot(data.integrations);
         renderContentPlanner(data.contentPlanner);
@@ -387,8 +627,97 @@
         renderIntegrations(data.integrations);
       }
 
+      async function submitPlannerForm(event) {
+        event.preventDefault();
+        const itemId = document.getElementById('itemId').value;
+        const payload = {
+          title: document.getElementById('title').value,
+          platform: document.getElementById('platform').value,
+          owner: document.getElementById('owner').value,
+          stage: document.getElementById('stage').value,
+          due: document.getElementById('due').value,
+          status: document.getElementById('status').value,
+          notes: document.getElementById('notes').value,
+          source: itemId ? 'manual-edit' : 'manual',
+        };
+
+        try {
+          const url = itemId ? `/api/planner-items/${itemId}` : '/api/planner-items';
+          const method = itemId ? 'PATCH' : 'POST';
+          await requestJson(url, {
+            method,
+            body: JSON.stringify(payload),
+          });
+          setMessage('formStatus', itemId ? 'Planner item updated.' : 'Planner item created.', 'pill ok');
+          resetForm();
+          await loadDashboard();
+        } catch (error) {
+          setMessage('formStatus', error.message, 'pill danger');
+        }
+      }
+
+      async function moveToNextStage(itemId, currentStage) {
+        const nextStage = currentStage === 'ideas' ? 'production' : 'scheduled';
+        try {
+          await requestJson(`/api/planner-items/${itemId}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              stage: nextStage,
+              status: nextStage === 'scheduled' ? 'Scheduled' : 'In Production',
+              source: 'manual-edit',
+            }),
+          });
+          await loadDashboard();
+        } catch (error) {
+          setMessage('formStatus', error.message, 'pill danger');
+        }
+      }
+
+      async function deleteItem(itemId) {
+        if (!confirm('Delete this planner item?')) return;
+        try {
+          await requestJson(`/api/planner-items/${itemId}`, { method: 'DELETE' });
+          await loadDashboard();
+          setMessage('formStatus', 'Planner item deleted.', 'pill ok');
+        } catch (error) {
+          setMessage('formStatus', error.message, 'pill danger');
+        }
+      }
+
+      async function simulateWebhook() {
+        const sample = {
+          title: `n8n approved post ${new Date().toLocaleTimeString()}`,
+          platform: 'Instagram',
+          owner: 'Automation',
+          due: new Date(Date.now() + 36 * 60 * 60 * 1000).toISOString(),
+          status: 'Approved via n8n',
+          notes: 'This item was inserted by the webhook demo button.',
+          source: 'n8n',
+        };
+
+        try {
+          const result = await requestJson('/api/webhooks/n8n/content-approved', {
+            method: 'POST',
+            body: JSON.stringify(sample),
+          });
+          setMessage('webhookStatus', `Webhook ${result.action}: ${result.item.title}`, 'pill ok');
+          await loadDashboard();
+        } catch (error) {
+          setMessage('webhookStatus', error.message, 'pill danger');
+        }
+      }
+
+      document.getElementById('plannerForm').addEventListener('submit', submitPlannerForm);
+      document.getElementById('resetFormBtn').addEventListener('click', resetForm);
+      document.getElementById('simulateWebhookBtn').addEventListener('click', simulateWebhook);
+
+      window.fillForm = fillForm;
+      window.moveToNextStage = moveToNextStage;
+      window.deleteItem = deleteItem;
+
+      resetForm();
       loadDashboard().catch((error) => {
-        document.body.insertAdjacentHTML('beforeend', `<div style="padding:16px;color:#fca5a5;">${error.message}</div>`);
+        document.body.insertAdjacentHTML('beforeend', `<div style="padding:16px;color:#fca5a5;">${escapeHtml(error.message)}</div>`);
       });
     </script>
   </body>
