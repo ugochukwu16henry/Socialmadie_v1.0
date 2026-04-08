@@ -7,68 +7,114 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #0f172a;
-        --panel: #111827;
+        --bg: #081120;
+        --panel: rgba(15, 23, 42, 0.92);
+        --panel-soft: rgba(17, 24, 39, 0.88);
         --muted: #94a3b8;
         --accent: #7c3aed;
+        --accent-soft: rgba(124, 58, 237, 0.16);
         --ok: #22c55e;
-        --border: #1f2937;
+        --warn: #f59e0b;
+        --danger: #f87171;
+        --border: #243042;
       }
+
       * {
         box-sizing: border-box;
       }
+
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #0f172a, #111827 50%, #1e1b4b);
+        background: radial-gradient(circle at top, #1e1b4b 0%, #081120 55%, #050b15 100%);
         color: #f8fafc;
       }
+
       .wrap {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 32px 20px 48px;
+        padding: 28px 18px 48px;
       }
+
       .hero,
       .card {
-        background: rgba(17, 24, 39, 0.92);
+        background: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 16px;
+        border-radius: 18px;
         padding: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.24);
       }
-      .hero h1 {
-        margin-top: 0;
+
+      .hero-grid,
+      .section-grid,
+      .grid {
+        display: grid;
+        gap: 16px;
       }
+
+      .hero-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .section-grid {
+        grid-template-columns: 1.4fr 1fr;
+        margin-top: 20px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
       .muted {
         color: var(--muted);
       }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
-      }
-      .badge {
+
+      .badge,
+      .pill {
         display: inline-block;
-        background: rgba(124, 58, 237, 0.18);
-        color: #c4b5fd;
-        border: 1px solid rgba(124, 58, 237, 0.45);
-        padding: 4px 10px;
         border-radius: 999px;
         font-size: 12px;
-        margin-bottom: 10px;
+        padding: 5px 10px;
       }
-      .status {
-        display: inline-block;
-        margin-top: 10px;
-        color: var(--ok);
-        font-weight: bold;
+
+      .badge {
+        background: var(--accent-soft);
+        color: #d8b4fe;
+        border: 1px solid rgba(124, 58, 237, 0.45);
       }
-      code {
-        background: rgba(15, 23, 42, 0.95);
-        padding: 2px 6px;
-        border-radius: 6px;
+
+      .pill {
+        background: rgba(148, 163, 184, 0.14);
+        color: #dbeafe;
       }
+
+      .pill.ok {
+        background: rgba(34, 197, 94, 0.15);
+        color: #86efac;
+      }
+
+      .pill.warn {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+      }
+
+      .pill.danger {
+        background: rgba(248, 113, 113, 0.15);
+        color: #fca5a5;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+        margin: 8px 0 12px;
+      }
+
       .actions a {
         color: white;
         background: var(--accent);
@@ -79,74 +125,270 @@
         margin-right: 10px;
         margin-top: 10px;
       }
-      ul {
-        padding-left: 18px;
+
+      .summary-card {
+        background: var(--panel-soft);
+      }
+
+      .summary-card .value {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 10px 0 6px;
+      }
+
+      .mini-list,
+      .calendar-list,
+      .workflow-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .mini-row,
+      .calendar-item,
+      .workflow-item,
+      .board-item {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(8, 17, 32, 0.55);
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .board-column {
+        background: rgba(8, 17, 32, 0.45);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .board-column h3 {
+        margin-bottom: 10px;
+      }
+
+      .board-stack {
+        display: grid;
+        gap: 10px;
+      }
+
+      .calendar-item,
+      .workflow-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      code {
+        background: rgba(15, 23, 42, 0.95);
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .small {
+        font-size: 13px;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .section-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <section class="hero">
-        <div class="badge">Socialmadie v1.0</div>
-        <h1>Integrated starter dashboard</h1>
-        <p class="muted">
-          This local dashboard wires your workspace to the cloned reference
-          repos and gives you a single place to start building the actual app.
-        </p>
-        <div class="actions">
-          <a href="/api/health">Health API</a>
-          <a href="/api/integrations">Integration JSON</a>
+        <div class="hero-grid">
+          <div>
+            <div class="badge">Socialmadie v1.0 · First feature build</div>
+            <h1>Content Planner + Automation Dashboard</h1>
+            <p class="muted">
+              This screen now combines publishing inspiration from <code>mixpost</code>,
+              campaign ideas from <code>randolly</code>, and orchestration concepts from
+              <code>n8n</code> and <code>activepieces</code> into one Socialmadie workspace.
+            </p>
+            <div class="actions">
+              <a href="/api/dashboard">Dashboard API</a>
+              <a href="/api/content-planner">Content Planner API</a>
+              <a href="/api/automation-dashboard">Automation API</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-head">
+              <h3>Sync snapshot</h3>
+              <span class="pill ok">Live map</span>
+            </div>
+            <div id="syncSnapshot" class="mini-list"></div>
+          </div>
         </div>
       </section>
 
-      <section>
-        <h2>Connected repo references</h2>
-        <div id="cards" class="grid"></div>
+      <section style="margin-top: 20px">
+        <div class="section-head">
+          <h2>Overview</h2>
+          <span class="muted small">First production-facing Socialmadie modules</span>
+        </div>
+        <div id="summaryGrid" class="grid"></div>
+      </section>
+
+      <section class="section-grid">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="badge">Feature 01</span>
+              <h2 style="margin-top: 8px">Content Planner</h2>
+            </div>
+            <span class="pill">Mixpost + Randolly inspired</span>
+          </div>
+          <div id="contentBoard" class="board"></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="badge">This week</span>
+              <h2 style="margin-top: 8px">Publishing Calendar</h2>
+            </div>
+            <span class="pill ok">Ready to schedule</span>
+          </div>
+          <div id="calendarList" class="calendar-list"></div>
+        </article>
       </section>
 
       <section class="card" style="margin-top: 20px">
-        <h2>Next build targets</h2>
-        <ul>
-          <li>
-            <strong>Automation:</strong> use <code>integrations/n8n</code> and
-            <code>integrations/activepieces</code> for workflow ideas and
-            orchestration.
-          </li>
-          <li>
-            <strong>Publishing:</strong> adapt UX patterns from
-            <code>integrations/mixpost</code>.
-          </li>
-          <li>
-            <strong>Campaign logic:</strong> review
-            <code>integrations/randolly</code> for reference flows and ideas.
-          </li>
-        </ul>
+        <div class="section-head">
+          <div>
+            <span class="badge">Feature 02</span>
+            <h2 style="margin-top: 8px">Automation Dashboard</h2>
+          </div>
+          <span class="pill">n8n + Activepieces driven</span>
+        </div>
+        <div id="workflowList" class="workflow-list"></div>
+      </section>
+
+      <section style="margin-top: 20px">
+        <div class="section-head">
+          <h2>Connected repo references</h2>
+          <span class="muted small">Everything is mapped back into the Socialmadie app</span>
+        </div>
+        <div id="cards" class="grid"></div>
       </section>
     </div>
 
     <script>
-      async function loadCards() {
-        const res = await fetch("/api/integrations");
-        const data = await res.json();
-        const cards = document.getElementById("cards");
-        cards.innerHTML = data.integrations
-          .map(
-            (item) => `
-        <article class="card">
-          <div class="badge">${item.label}</div>
-          <h3>${item.role}</h3>
-          <p class="muted"><strong>Path:</strong> <code>${item.repoPath}</code></p>
-          <p class="muted"><strong>Local URL:</strong> ${item.localUrl}</p>
-          <div class="status">${item.available ? "Available locally" : "Missing locally"}</div>
-        </article>
-      `,
-          )
-          .join("");
+      function toStatusClass(status) {
+        const value = String(status || '').toLowerCase();
+        if (value.includes('healthy') || value.includes('ready') || value.includes('connected') || value.includes('scheduled')) return 'ok';
+        if (value.includes('review') || value.includes('sync')) return 'warn';
+        return 'danger';
       }
 
-      loadCards().catch((error) => {
-        document.getElementById("cards").innerHTML =
-          `<article class="card"><h3>Failed to load integrations</h3><p>${error.message}</p></article>`;
+      function renderSummary(items) {
+        const grid = document.getElementById('summaryGrid');
+        grid.innerHTML = items.map((item) => `
+          <article class="card summary-card">
+            <div class="muted small">${item.label}</div>
+            <div class="value">${item.value}</div>
+            <div class="muted small">${item.note}</div>
+          </article>
+        `).join('');
+      }
+
+      function renderSyncSnapshot(integrations) {
+        const root = document.getElementById('syncSnapshot');
+        root.innerHTML = integrations.map((item) => `
+          <div class="mini-row">
+            <strong>${item.label}</strong><br />
+            <span class="muted small">${item.feature}</span><br />
+            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+          </div>
+        `).join('');
+      }
+
+      function renderContentPlanner(contentPlanner) {
+        const board = document.getElementById('contentBoard');
+        board.innerHTML = contentPlanner.board.map((column) => `
+          <div class="board-column">
+            <h3>${column.title}</h3>
+            <div class="board-stack">
+              ${column.items.map((item) => `
+                <div class="board-item">
+                  <strong>${item.title}</strong><br />
+                  <span class="muted small">${item.platform} · ${item.owner}</span><br />
+                  <span class="pill">Due: ${item.due}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+
+        const calendar = document.getElementById('calendarList');
+        calendar.innerHTML = contentPlanner.calendar.map((item) => `
+          <div class="calendar-item">
+            <div>
+              <strong>${item.title}</strong><br />
+              <span class="muted small">${item.day} · ${item.time} · ${item.platform}</span>
+            </div>
+            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+          </div>
+        `).join('');
+      }
+
+      function renderAutomation(automation) {
+        const workflows = document.getElementById('workflowList');
+        workflows.innerHTML = automation.workflows.map((item) => `
+          <div class="workflow-item">
+            <div>
+              <strong>${item.name}</strong><br />
+              <span class="muted small">${item.source} · ${item.trigger}</span><br />
+              <span class="muted small">${item.outcome}</span>
+            </div>
+            <span class="pill ${toStatusClass(item.status)}">${item.status}</span>
+          </div>
+        `).join('');
+      }
+
+      function renderIntegrations(integrations) {
+        const cards = document.getElementById('cards');
+        cards.innerHTML = integrations.map((item) => `
+          <article class="card">
+            <div class="badge">${item.label}</div>
+            <h3>${item.feature}</h3>
+            <p class="muted">${item.purpose}</p>
+            <p class="muted small"><strong>Path:</strong> <code>${item.repoPath}</code></p>
+            <p class="muted small"><strong>Mode:</strong> ${item.syncState}</p>
+            <div class="pill ${toStatusClass(item.available ? 'connected' : 'missing')}">${item.available ? 'Available locally' : 'Missing locally'}</div>
+          </article>
+        `).join('');
+      }
+
+      async function loadDashboard() {
+        const res = await fetch('/api/dashboard');
+        if (!res.ok) throw new Error('Dashboard API failed to load');
+        const data = await res.json();
+        renderSummary(data.summary);
+        renderSyncSnapshot(data.integrations);
+        renderContentPlanner(data.contentPlanner);
+        renderAutomation(data.automation);
+        renderIntegrations(data.integrations);
+      }
+
+      loadDashboard().catch((error) => {
+        document.body.insertAdjacentHTML('beforeend', `<div style="padding:16px;color:#fca5a5;">${error.message}</div>`);
       });
     </script>
   </body>
